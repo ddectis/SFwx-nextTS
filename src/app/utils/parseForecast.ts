@@ -146,11 +146,17 @@ const parseForecast = (
 
 
 })
-  console.log(typeof dailySummary)
+
   const chartData: WeatherChartData = {
-    DailySummary: dailySummary as WeatherChartData['DailySummary'],
-    DailySummaryDetailArray: dailySummaryDetail as WeatherChartData['DailySummaryDetailArray']
+    DailySummary: dailySummary,
+    DailySummaryDetailArray: dailySummaryDetail,
+    DewPointPeriods: dewPointPeriods,
+    DewPointData: dewPointData,
+    TempData: tempData,
+    DeltaData: deltaData
   }
+
+  setChartData(chartData)
   
   return weatherObjects;
 };
