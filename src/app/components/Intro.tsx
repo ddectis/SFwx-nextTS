@@ -1,9 +1,5 @@
 const Intro = () =>{
-    const infoButtonClick = () =>{
-        console.log("info button click")
-        const projectInfo = document.getElementById('project-info')
-        projectInfo?.classList.toggle('hide')
-    }
+    
     
     return (
         <div className="sub-title hide" id="project-info">

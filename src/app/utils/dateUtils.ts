@@ -7,7 +7,6 @@ export const getNumericalDate = (timeArray: string[]) => { //takes in the split 
 }
 
 export const createDateObject = (numericalDate: string, currentYear: number) => { //expects a Numerical Date e.g. 08-12 and currentYear e.g. 2023.
-    console.log("Numerical Date: " + currentYear)
     return new Date(currentYear + "-" + numericalDate)
 }
 

@@ -6,13 +6,14 @@ import Overview from "./components/Overview";
 import Details from "./components/Details";
 import fetchForecastData from "./utils/fetchForecastData";
 import parseForecast from "./utils/parseForecast";
-import { RawWeatherPeriod, ParsedWeatherPeriod } from "./types/types";
+import { RawWeatherPeriod, ParsedWeatherPeriod, WeatherChartData } from "./types/types";
 
 export default function Home() {
    const [forecastData, setForecastData] = useState<RawWeatherPeriod[]>([]);
    const [parsedForecast, setParsedForecast] = useState<ParsedWeatherPeriod[]>([]);
    const [useCachedForecast, setUseCachedForecast] = useState<boolean>(false);
-   const [lastUpdateTime, setLastUpdateTime] = useState<Date | undefined>(undefined);
+   const [lastUpdateTime, setLastUpdateTime] = useState<Date | null>(null);
+   const [chartData, setChartData] = useState<WeatherChartData>()
 
    //on page load, fetch the raw forecast data and set the state
    useEffect(() => {
@@ -33,20 +34,21 @@ export default function Home() {
          setParsedForecast(
             parseForecast(
                forecastData,
-               useCachedForecast
+               useCachedForecast,
+               setChartData
             )
          );
       }
    }, [forecastData, useCachedForecast]);
 
    function checkData(): void {
-      console.log(forecastData);
+      console.log(parsedForecast);
    }
 
    return (
       <main className={styles.main}>
          <div className="app">
-            <button onClick={checkData}>Test</button>
+            <button onClick={checkData}>Yo</button>
             <Overview lastUpdateTime={lastUpdateTime} />
             <Details />
          </div>

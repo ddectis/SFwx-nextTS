@@ -1,29 +1,38 @@
-import { RawWeatherPeriod, ParsedWeatherPeriod } from "../types/types";
+import { RawWeatherPeriod, ParsedWeatherPeriod, WeatherChartData, DailySummaryDetail, DailySummary } from "../types/types";
 import { Dispatch, SetStateAction } from "react";
 import { getYear, getDayOfWeek, getNumericalDate, getTimezone, createDateObject } from "./dateUtils";
 
 const parseForecast = (
   rawData: RawWeatherPeriod[],
   useCacheForecast: boolean,
-): ParsedWeatherPeriod => {
+  setChartData: Dispatch<SetStateAction<WeatherChartData | null>>
+): ParsedWeatherPeriod[] => {
 
-  let countOfBlueHours = 0            //keep track of how many of the forecast hours are "blue" i.e. good conditions
-  let streakOfBlueHours = 0;          //every consecutive blue hour adds 1 to the streak, a nonblue hour sets it back to 0
-  let longestBlueHourStreak = 0;      //store the longest streak here
-  let dayWithLongestBlueStreak = ``;  //store the day with the longest streak here
-  let totalHours = 0;                 //keep track of the sum of blue hours in the whole week
-  let currentDayBeingTabulated = ``;  //use this value as the periods.forEach loop goes through each period. Check to see when it changes and then tabulate how many blue hours each day has
-  let lastDayTabulated = ``;          //when currentDay is not = lastDay, we know that the day has changed
-  let lastDayEntryTime = ``;
-  let periodIndex = 0;
-  let dayIndex = 0;                   //this value increases by 1 every time we detect that the parser has advanced to the next day
-  let dailyBlueHours = 0;
-  let dailySummary = {}                //this object will store the count of blue hours in each day. Used to create a daily summary graph
-  let dailySummaryDetail = [];         //this object will store the list of blue hours for each day in an object to feed to the charts.js bubble chart
-  let dewPointPeriods = [];           //this array will log time periods to match up with the dewpoints because the charts.js line graph seems to need an array for the labels and another array for the data
-  let dewPointData = [];              //this array will store the dew point for each period
-  let tempData = [];                  //this array will store the temperature values to put on the dew point graph
-  let deltaData = [];                 //this array will store the delta between temperature and dewpoint
+  let countOfBlueHours: number = 0            //keep track of how many of the forecast hours are "blue" i.e. good conditions
+  let streakOfBlueHours: number = 0;          //every consecutive blue hour adds 1 to the streak, a nonblue hour sets it back to 0
+  let longestBlueHourStreak: number = 0;      //store the longest streak here
+  let dayWithLongestBlueStreak: string = ``;  //store the day with the longest streak here
+  let totalHours: number = 0;                 //keep track of the sum of blue hours in the whole week
+  let currentDayBeingTabulated: string = ``;  //use this value as the periods.forEach loop goes through each period. Check to see when it changes and then tabulate how many blue hours each day has
+  let lastDayTabulated: string = ``;          //when currentDay is not = lastDay, we know that the day has changed
+  let lastDayEntryTime: string = ``;
+  let periodIndex: number = 0;
+  let dayIndex: number = 0;                   //this value increases by 1 every time we detect that the parser has advanced to the next day
+  let dailyBlueHours: number = 0;
+  let dailySummary: DailySummary = { //when using object types, it's important to initialize the object with all the keys and placeholder values in place. Otherwise you'll get a type error
+    Sun: 0,
+    Mon: 0,
+    Tue: 0,
+    Wed: 0,
+    Thu: 0,
+    Fri: 0,
+    Sat: 0
+  }                //this object will store the count of blue hours in each day. Used to create a daily summary graph
+  let dailySummaryDetail: DailySummaryDetail[] = [];         //this object will store the list of blue hours for each day in an object to feed to the charts.js bubble chart
+  let dewPointPeriods: string[] = [];           //this array will log time periods to match up with the dewpoints because the charts.js line graph seems to need an array for the labels and another array for the data
+  let dewPointData: number[] = [];              //this array will store the dew point for each period
+  let tempData: number[] = [];                  //this array will store the temperature values to put on the dew point graph
+  let deltaData: number[] = [];                 //this array will store the delta between temperature and dewpoint
   let weatherObjects: ParsedWeatherPeriod[] = []
 
 
@@ -135,12 +144,15 @@ const parseForecast = (
         totalHours++;
     }
 
-    return weatherObjects;
+
 })
-
-  let parsedForecast: ParsedWeatherPeriod = [];
-
-  return parsedForecast;
+  console.log(typeof dailySummary)
+  const chartData: WeatherChartData = {
+    DailySummary: dailySummary as WeatherChartData['DailySummary'],
+    DailySummaryDetailArray: dailySummaryDetail as WeatherChartData['DailySummaryDetailArray']
+  }
+  
+  return weatherObjects;
 };
 
 
