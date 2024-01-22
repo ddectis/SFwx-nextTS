@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Overview from "./components/Overview";
 import Details from "./components/Details";
+import Intro from "./components/Intro";
 import fetchForecastData from "./utils/fetchForecastData";
 import parseForecast from "./utils/parseForecast";
 import {
@@ -57,7 +58,7 @@ export default function Home() {
    return (
       <main className={styles.main}>
          <div className="app">
-            <button onClick={checkData}>Yo</button>
+            <Intro/>
             <Overview
                lastUpdateTime={lastUpdateTime}
                weatherSummary={weatherSummary}

@@ -13,12 +13,6 @@ const Overview: React.FC<OverviewProps> = ({
    lastUpdateTime,
    weatherSummary,
 }) => {
-   const infoButtonClick = () => {
-      console.log("info button click");
-      const projectInfo = document.getElementById("project-info");
-      projectInfo?.classList.toggle("hide");
-   };
-
    /**
     * Handles the case where there might only be 1 blue hour
     * @param longestBlueHourStreak: it'll be undefined when the app loads, then a number once we get data
@@ -31,6 +25,12 @@ const Overview: React.FC<OverviewProps> = ({
          return "hours";
       }
    };
+
+   /**
+    * Takes in the total number of blue hours and determines the grade for the week
+    * @param countOfBlueHours 
+    * @returns 
+    */
 
    const calculateGrade = (countOfBlueHours: number | undefined) => {
       if (countOfBlueHours !== undefined) {
@@ -55,15 +55,9 @@ const Overview: React.FC<OverviewProps> = ({
          <a className="smaller" href="https://dectronica.com/">
             &gt;&gt; Project by: Dectronica // Click to see more &lt;&lt;
          </a>
-         <Intro />
+
          <div className="blue border-radius default-border">
-            <button
-               id="info-toggle"
-               className="info-button"
-               onClick={infoButtonClick}
-            >
-               i
-            </button>
+            
             <div className="summary-holder">
                <div className="weather-summary" id="weather-summary">
                   <h1>Sunset + Richmond Forecast</h1>
