@@ -9,7 +9,7 @@ const Intro = () =>{
               </h1>
               <img
                 className="cell"
-                src="./assets/img/cell-1.jpg"
+                src="./img/cell-1.jpg"
                 alt="The map cell indicated on this page"
               />
             </div>

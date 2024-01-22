@@ -1,11 +1,12 @@
-import { RawWeatherPeriod, ParsedWeatherPeriod, WeatherChartData, DailySummaryDetail, DailySummary } from "../types/types";
+import { RawWeatherPeriod, ParsedWeatherPeriod, WeatherChartData, DailySummaryDetail, DailySummary, WeatherSummary } from "../types/types";
 import { Dispatch, SetStateAction } from "react";
 import { getYear, getDayOfWeek, getNumericalDate, getTimezone, createDateObject } from "./dateUtils";
 
 const parseForecast = (
   rawData: RawWeatherPeriod[],
   useCacheForecast: boolean,
-  setChartData: Dispatch<SetStateAction<WeatherChartData | null>>
+  setChartData: Dispatch<SetStateAction<WeatherChartData | null>>,
+  setWeatherSummary: Dispatch<SetStateAction<WeatherSummary | null>>
 ): ParsedWeatherPeriod[] => {
 
   let countOfBlueHours: number = 0            //keep track of how many of the forecast hours are "blue" i.e. good conditions
@@ -148,15 +149,24 @@ const parseForecast = (
 })
 
   const chartData: WeatherChartData = {
-    DailySummary: dailySummary,
-    DailySummaryDetailArray: dailySummaryDetail,
-    DewPointPeriods: dewPointPeriods,
-    DewPointData: dewPointData,
-    TempData: tempData,
-    DeltaData: deltaData
+    dailySummary: dailySummary,
+    dailySummaryDetailArray: dailySummaryDetail,
+    dewPointPeriods: dewPointPeriods,
+    dewPointData: dewPointData,
+    tempData: tempData,
+    deltaData: deltaData
   }
 
   setChartData(chartData)
+
+  const weatherSummary: WeatherSummary = {
+    countOfBlueHours: countOfBlueHours,
+    dayWithLongestBlueStreak: dayWithLongestBlueStreak,
+    longestBlueHourStreak: longestBlueHourStreak,
+    totalHours: countOfBlueHours
+  }
+
+  setWeatherSummary(weatherSummary)
   
   return weatherObjects;
 };

@@ -69,10 +69,17 @@ export type DailySummary = {
 }
 
 export type WeatherChartData = {
-  DailySummary: DailySummary
-  DailySummaryDetailArray: DailySummaryDetail[]
-  DewPointPeriods: string[],
-  DewPointData: number[],
-  TempData: number[],
-  DeltaData: number[];
+  dailySummary: DailySummary
+  dailySummaryDetailArray: DailySummaryDetail[]
+  dewPointPeriods: string[],
+  dewPointData: number[],
+  tempData: number[],
+  deltaData: number[];
+}
+
+export type WeatherSummary = {
+  countOfBlueHours: number,
+  dayWithLongestBlueStreak: string,
+  longestBlueHourStreak: number, 
+  totalHours: number
 }

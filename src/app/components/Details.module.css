@@ -271,30 +271,30 @@
     transform: rotate(337.5deg);
 }
 
-.weather-entry {
+.weatherEntry {
     border: 1px solid #d7d7d7;
     padding: 1px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-end;
-    width: 100%;
+    width: 95%;
     border-radius: 10px;
     padding-left: 3%;
     margin-block:3px
 }
 
 
-.category-0 {
+.category0 {
     /* this is the best category */
     background-color: cornflowerblue;
     color: #121212;
-    width: 100%;
+    
     font-weight: bold;
     border: 3px double #d7d7d7;
 }
 
-.category-1 {
+.category1 {
     /* this category is less good */
     background-color: #252525;
     color: #d7d7d7;
