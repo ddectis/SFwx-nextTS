@@ -2,16 +2,19 @@
 import Intro from "./Intro";
 import Charts from "./Charts";
 import BlueHourDescription from "./BlueHourDescription";
-import { WeatherSummary } from "../types/types";
+import { WeatherSummary, WeatherChartData } from "../types/types";
+import ChartDemo from "./ChartDemo";
 
 interface OverviewProps {
    lastUpdateTime: Date | null;
    weatherSummary: WeatherSummary | null;
+   weatherChartData: WeatherChartData;
 }
 
 const Overview: React.FC<OverviewProps> = ({
    lastUpdateTime,
    weatherSummary,
+   weatherChartData
 }) => {
    /**
     * Handles the case where there might only be 1 blue hour
@@ -83,7 +86,7 @@ const Overview: React.FC<OverviewProps> = ({
                      </div>
                   </div>
                </div>
-               <Charts />
+               <Charts chartData={weatherChartData} />
             </div>
             <BlueHourDescription />
             <h3 id="last-updated">

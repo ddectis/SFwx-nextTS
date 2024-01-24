@@ -14,14 +14,27 @@ import {
 } from "./types/types";
 
 export default function Home() {
+   const defaultChartData: WeatherChartData = {
+      dailySummary: { Sat: 0, Sun: 0, Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0 },
+      dailySummaryDetailArray: [],
+      dewPointPeriods: [],
+      dewPointData: [],
+      tempData: [],
+      deltaData: [],
+   };
+
+
    const [forecastData, setForecastData] = useState<RawWeatherPeriod[]>([]);
    const [parsedForecast, setParsedForecast] = useState<ParsedWeatherPeriod[]>(
       []
    );
    const [useCachedForecast, setUseCachedForecast] = useState<boolean>(false);
    const [lastUpdateTime, setLastUpdateTime] = useState<Date | null>(null);
-   const [chartData, setChartData] = useState<WeatherChartData | null>(null);
-   const [weatherSummary, setWeatherSummary] = useState<WeatherSummary | null>(null)
+   const [chartData, setChartData] = useState<WeatherChartData>(defaultChartData);
+   const [weatherSummary, setWeatherSummary] = useState<WeatherSummary | null>(
+      null
+   );
+
 
    //on page load, fetch the raw forecast data and set the state
    useEffect(() => {
@@ -41,7 +54,12 @@ export default function Home() {
    useEffect(() => {
       if (forecastData) {
          setParsedForecast(
-            parseForecast(forecastData, useCachedForecast, setChartData, setWeatherSummary)
+            parseForecast(
+               forecastData,
+               useCachedForecast,
+               setChartData,
+               setWeatherSummary
+            )
          );
       }
    }, [forecastData, useCachedForecast]);
@@ -58,10 +76,11 @@ export default function Home() {
    return (
       <main className={styles.main}>
          <div className="app">
-            <Intro/>
+            <Intro />
             <Overview
                lastUpdateTime={lastUpdateTime}
                weatherSummary={weatherSummary}
+               weatherChartData={chartData}
             />
             <Details parsedForecast={parsedForecast} />
          </div>

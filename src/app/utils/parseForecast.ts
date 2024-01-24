@@ -5,7 +5,7 @@ import { getYear, getDayOfWeek, getNumericalDate, getTimezone, createDateObject 
 const parseForecast = (
   rawData: RawWeatherPeriod[],
   useCacheForecast: boolean,
-  setChartData: Dispatch<SetStateAction<WeatherChartData | null>>,
+  setChartData: Dispatch<SetStateAction<WeatherChartData>>,
   setWeatherSummary: Dispatch<SetStateAction<WeatherSummary | null>>
 ): ParsedWeatherPeriod[] => {
 
