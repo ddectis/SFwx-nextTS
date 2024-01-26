@@ -75,6 +75,7 @@ export default function Home() {
 
    return (
       <main className={styles.main}>
+         <button onClick={checkData}>Check</button>
          <div className="app">
             <Intro />
             <Overview
